@@ -1,0 +1,100 @@
+People
+	Location: Google hangout
+	Attendance: Robert, Greg, Joe, SB arrived late
+	Minutes: Joe
+Agenda
+	• confirmation of 8 DAC channels per Sayma card using RTM
+	• plan for RF daughter cards (castellated? SMP?) on the DAC card
+	• confirmation and details of using FMC and/or RTM for CPU modules on Sayma and/or Metlino
+	• results of the AMC clock noise measurement, if available
+	• if RF backplane is used...
+		○ independent DAC clocks (eg 2.0 GHz) could be generated on eRTM15
+		○ in lieu of sayma_daughter_clk
+		○ low-noise analog power distribution
+	• Is there room for ADC daughter cards on RTM or do they need to be soldered on?
+	 
+Discussion
+
+	#### Do we want to use RTM for Sayma design?
+		Greg observes that this simplifies board layout and makes much more practical an 8 channel design. "Use of RTM lowers risk to almost zero," says Greg. "Putting everything on AMC requires more layers, more careful routing." This also permits faster production as well. WUT already has experience with more complex boards. Clock distribution is not the main driving factor in this choice.
+		No impact on cost for ARL/Duke. No need to change contract. Joe agrees with this trajectory. Robert concurs.
+		Decision: Sayma analog components will be on RTM board and digital components will be on AMC (front side) board. 
+		 
+	#### Consider combining ADC and DAC front ends onto the same daughter card?
+		Motivation:
+			Avoids use of in-line boards.
+			Better board-to-board RF isolation.
+			Better mechanical stability.
+		Layout: 2 daughter cards in all each supporting 4 input channels and 4 output channels.
+		Greg wants to think about the mechanical implications of daughter cards on RTM. In particular… What is longest SMP stand off? Can we use SMP-SMP barrels?
+		Decision: Single combined daughter card with 4 ADC and 4 DAC channels. Two such daughter cards per Sayma RTM. Daughter cards will be Sayma RTM mezzanine modules… that is they will plug into receptacles on motherboard. 
+	 
+	#### JESD204B and AD9154 together substantially limit closed loop latency.
+		Robert's current budget on the input-to-output latency is this:
+		
+		t_adc = 1/.125
+		t_adc_pclock = 1/.125
+		t_rx = 1/6.4*10
+		t_dsp = 1/.125
+		t_tx = 1/10*10
+		t_dac_pclock = 1/10*40
+		t_dac = 1/2
+		
+		l = (
+		    44*t_adc +  # adc L4 mode
+		    0*t_adc_pclock +  # adc tx?
+		    0*t_adc_pclock +  # adc var?
+		    (88 + 4)*t_rx +  # fpga rx gtx
+		    (1 + 1 + 1 + 1)*t_dsp +  # fpga dsp/pid
+		    2*19*t_dsp +  # fpga sawg 2x cordic into AM
+		    4*t_dsp +  # fpga sawg summing
+		    1*t_dsp +  # tx sysref slip
+		    (56 + 2)*t_tx +  # fpga tx gtx (xilinx jesd)
+		    17*t_dac_pclock +  # dac rx interface
+		    2*t_dac_pclock +  # dac rx interface var
+		    130*t_dac +  # 2x interpolation
+		0)
+		
+		about 1.07 µs. That would give you π phase shift at 500 kHz and a
+		usable loop bandwidth of maybe 300 kHz.
+		This is still leaving out a few things like the CIC/FIR but the actual
+		number won't be far off.
+		
+			Ø 50% of latency is due to JESD204B… 
+			Ø Oct 3 delivery for JESD204B demo is on time
+	
+	#### Recall what will be delivered for this Oct 3 demo
+		hardware platform: KC705 with single AD9154 FMC card connected 
+		• supports playback of a waveform in block-RAM (defined at bitstream compilation time), with inter-channel synchronization
+		• contains a simple DDS core: independent CORDICs on all 4 channels, supports modifying a single parameter (frequency, phase, or amplitude), synchronized change of this parameter across all channels
+		• interface of the simple DDS core with ARTIQ RTIO
+		• no inter-DAC synchronization.
+		
+	#### Metlino changes in light of commitment to use RTM
+		○ uTCA crate will be installed in physicists labs with RTM facing forward. That is it will be backward. 
+		○ There's room to add front-facing FMC LPC on Metlino. Primary application for this is addition of a hard core CPU in the future. 
+		○ Shift SFP ports to back-facing RTM card that interfaces directly with the Metlino. The existing Creotech RTM 8-channel SFP breakout card is a good template. This will need a slightly different connector for adapting to Metlino (MCH Tongues 3-4). The routing of SFP out the backside of the crate is compatible with the RTM-faces-forward crate orientation plan. Use capacitors to optionally route 4 of the 8 to an AMC-side front-panel quad SFP.
+		 
+	#### Sayma changes in light of commitment to use RTM
+		○ Put FMC LPC on Metlino with front-panel access (to GTH transceiver). Primary application is future support of hard-core CPU by ARTIQ.
+		○ Dual SFP with GTH transceivers on AMC-side
+		○ Also see next section below
+	 
+	#### Would use of RTM and RF backplane preclude operation of Sayma in a stand-alone configuration?
+	
+		○ Short answer: stand-alone operation of single Sayma (RTM PCB plugged into AMC PCB) is supported. 
+		○ Greg is designing for a different project a very low cost single-AMC adapter. He will add RTM support to this design.  He has existing functional prototypes and will give them to us as needed for testing. Timeframe for availability of production single-AMC adapter is March. Cost is expected to be below 500 Euro (excluding power supply).
+		○ How to support possibility of deriving Sayma_RTM analog power from either RF backplane or AMC? Answer: Put DC-DC converter on Sayma to support power via AMC. But also have option for disabling the converter and using power directly from RF backplane. Use jumpers that do this.
+		○ How to support possibility of obtaining Sayma clock from either RF backplane, clock daughter card or front-panel SMA? Answer: Use a passive RF splitter to do this.
+ 
+	#### Project management
+		○ Agreement to use github for project management going forward with m-labs providing guidance.
+		○ Robert will define structure and populate git with some example tasks, timelines and dependencies. Joe will help translate google spreadsheets.
+		○ Joe and Robert will meet on Friday
+		○ Greg agrees with this approach
+
+		 
+Next meeting will take place Monday Sept 26 at
+* 0900 in Washington DC (UTC-4h)
+* 1500 in Warsaw and Berlin (UTC+2h)
+* 2100 in Hong Kong (UTC+12h)​

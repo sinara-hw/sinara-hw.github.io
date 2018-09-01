@@ -1,2 +1,0 @@
-  * Sayma v1.0 [AMC](https://github.com/m-labs/sinara/blob/production_v1/ARTIQ_EE/SAYMA_AMC.pdf), [RTM](https://github.com/m-labs/sinara/blob/production_v1/ARTIQ_EE/Sayma_RTM.pdf)
-  * [Allaki v1.0](https://github.com/m-labs/sinara/blob/2e8a1f8d53f62054cd0fdc1e3dc3b8c9c72ef1e3/ARTIQ_ALTIUM/Sayma_AFEs/BaseMod/Project%20Outputs%20for%20allaki_mezzanine/allaki_mezzanine.PDF)

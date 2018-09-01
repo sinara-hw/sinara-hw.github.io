@@ -4,7 +4,7 @@ Sinara is an open-source hardware ecosystem originally designed for use in quant
 
 It is licensed under CERN OHL v1.2.
 
-![Sinara Hardware](https://github.com/sinara-hw/sinara-hw.github.io/blob/master/images/ARTIQ_Sinara_hardware_tiny.jpg)
+![Sinara Hardware](https://github.com/sinara-hw/sinara-hw.github.io/assets/ARTIQ_Sinara_hardware_tiny.jpg)
 
 ## Why Sinara?
 

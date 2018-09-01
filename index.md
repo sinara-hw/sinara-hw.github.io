@@ -1,10 +1,10 @@
-## Welcome to Sinara
-
-## What is Sinara?
+## Welocome to Sinara
 
 Sinara is an open-source hardware ecosystem originally designed for use in quantum physics experiments running the [ARTIQ](https://m-labs.hk/artiq/) control software.  The hardware is also suitable for a broad range of laboratory and test & measurement applications.
 
 It is licensed under CERN OHL v1.2.
+
+![Sinara Hardware](https://github.com/sinara-hw/sinara-hw.github.io/blob/master/images/ARTIQ_Sinara_hardware_tiny.jpg)
 
 ## Why Sinara?
 

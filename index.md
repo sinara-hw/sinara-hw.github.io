@@ -6,6 +6,8 @@ Sinara is an open-source hardware ecosystem originally designed for use in quant
 
 It is licensed under CERN OHL v1.2.
 
+![Sinara Hardware](https://github.com/sinara-hw/sinara-hw.github.io/blob/master/images/ARTIQ_Sinara_hardware_tiny.jpg)
+
 ## Why Sinara?
 
 Control electronics used in many trapped-ion and other quantum physics experiments suffers from a number of problems. In general, an ad-hoc solution is hastily put together in-house without enough consideration about good design, reproducibility, testing and documentation. This makes those systems unreliable, fragile, and difficult to use and maintain. It also duplicates work in different laboratories. In addition, the performance and features of the existing systems (e.g. regarding pulse shaping abilities) is becoming insufficient for some experiments.

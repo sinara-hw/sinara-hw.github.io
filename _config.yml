@@ -1,3 +1,5 @@
 theme: jekyll-theme-slate
 title: [Sinara]
 description: [An open-source hardware ecosystem for quantum physics]
+github:
+  repository_url: https://github.com/sinara-hw

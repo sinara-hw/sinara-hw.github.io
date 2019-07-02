@@ -21,7 +21,7 @@ To alleviate those problems, Sinara aims to be:
 
 ## Who develops Sinara
 
-Sinara is currently developed by a collaboration including M-Labs, QUARTIQ, Warsaw University of Technology (WUT), US Army Research Laboratory (ARL), the University of Oxford, the University of Maryland and NIST. The majority of the hardware is designed by WUT. The work is funded by ARL, Duke University, the University of Oxford, and the University of Freiburg.
+Sinara is currently developed by a collaboration including M-Labs, QUARTIQ, Warsaw University of Technology (WUT), US Army Research Laboratory (ARL), the University of Oxford, the University of Maryland, NIST, PTB and University of Hannover. The majority of the hardware is designed by WUT. The work is funded by ARL, Duke University, the University of Oxford, University of Hannover, PTB, and the University of Freiburg.
 
 
 ## Getting Started
